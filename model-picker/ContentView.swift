@@ -9,8 +9,20 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
+    var models: [String] = ["fender_stratocaster", "toy_biplane", "tv_retro"]
     var body: some View {
-        return ARViewContainer().edgesIgnoringSafeArea(.all)
+        ZStack(alignment: .bottom) {
+            ARViewContainer()
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 30) {
+                    ForEach(0 ..< self.models.count) {
+                        index in Text(self.models[index])
+                    }
+                }
+            }
+        }
+//        return ARViewContainer().edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -20,11 +32,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         let arView = ARView(frame: .zero)
         
-        // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
+
         
         return arView
         
