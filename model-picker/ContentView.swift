@@ -14,17 +14,11 @@ struct ContentView : View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
-                    ForEach(0 ..< self.models.count) {
-                        index in Text(self.models[index])
-                    }
-                }
+            ModelPickerView(models: self.models)
+            
             }
         }
-//        return ARViewContainer().edgesIgnoringSafeArea(.all)
     }
-}
 
 struct ARViewContainer: UIViewRepresentable {
     
@@ -40,6 +34,33 @@ struct ARViewContainer: UIViewRepresentable {
     
     func updateUIView(_ uiView: ARView, context: Context) {}
     
+}
+
+
+// Model Picker view
+struct ModelPickerView: View {
+    var models: [String]
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 30) {
+                ForEach(0 ..< self.models.count) {
+                    index in Button(action: {
+                        print("Debug: selected model with name \(self.models[index])")
+                    }) {
+                        Image(uiImage: UIImage(named: self.models[index])!)
+                            .resizable()
+                            .frame(height: 80)
+                            .aspectRatio(1/1, contentMode: .fit)
+                            .background(Color.white)
+                            .cornerRadius(12)
+                    }
+                }
+            }
+        }
+        .padding(20)
+        .background(Color.black.opacity(0.5))
+    }
 }
 
 #if DEBUG
