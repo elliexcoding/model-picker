@@ -9,7 +9,24 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
-    var models: [String] = ["fender_stratocaster", "toy_biplane", "tv_retro"]
+    private var models: [String] = {
+       // dynamically fetch file names
+        let filemanager = FileManager.default
+        guard let path = Bundle.main.resourcePath,
+              let files = try?
+                filemanager.contentsOfDirectory(atPath: path)
+        else {
+            return []
+        }
+        
+        var availableModels: [String] = []
+        for fileName in files where fileName.hasSuffix("usdz") {
+            let modelName = fileName.replacingOccurrences(of: ".usdz", with: "")
+            availableModels.append(modelName)
+        }
+        
+        return availableModels
+    }()
     var body: some View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
