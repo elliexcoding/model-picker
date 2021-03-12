@@ -31,37 +31,8 @@ struct ContentView : View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
             
-            // ModelPickerView(models: self.models)
-            
-            HStack {
-                // cancel
-                Button(action: {
-                    print("DEBUG: Cancel Model Placement")
-                }) {
-                    Image(systemName: "xmark")
-                        .frame(width: 60, height: 60)
-                        .font(.title)
-                        .background(Color.white
-                                        .opacity(0.75))
-                        .cornerRadius(30)
-                        .padding(20)
-                }
-                // confirm
-                Button(action: {
-                    print("DEBUG: Confirm Model Placement")
-                }) {
-                    Image(systemName: "checkmark")
-                        .frame(width: 60, height: 60)
-                        .font(.title)
-                        .background(Color.white
-                                        .opacity(0.75))
-                        .cornerRadius(30)
-                        .padding(20)
-                }
-                
-                
-            }
-            
+            ModelPickerView(models: self.models)
+            ButtonPlacementsView()
             }
         }
     }
@@ -106,6 +77,37 @@ struct ModelPickerView: View {
         }
         .padding(20)
         .background(Color.black.opacity(0.5))
+    }
+}
+
+struct ButtonPlacementsView: View {
+    var body: some View {
+        HStack {
+            // cancel
+            Button(action: {
+                print("DEBUG: Cancel Model Placement")
+            }) {
+                Image(systemName: "xmark")
+                    .frame(width: 60, height: 60)
+                    .font(.title)
+                    .background(Color.white
+                                    .opacity(0.75))
+                    .cornerRadius(30)
+                    .padding(20)
+            }
+            // confirm
+            Button(action: {
+                print("DEBUG: Confirm Model Placement")
+            }) {
+                Image(systemName: "checkmark")
+                    .frame(width: 60, height: 60)
+                    .font(.title)
+                    .background(Color.white
+                                    .opacity(0.75))
+                    .cornerRadius(30)
+                    .padding(20)
+            }
+        }
     }
 }
 
