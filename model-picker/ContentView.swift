@@ -9,6 +9,8 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
+    
+    @State private var isPlacementEnabled = false
     private var models: [String] = {
        // dynamically fetch file names
         let filemanager = FileManager.default
@@ -30,9 +32,11 @@ struct ContentView : View {
     var body: some View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
-            
+            if self.isPlacementEnabled {
+                ButtonPlacementsView()
+            } else {
             ModelPickerView(models: self.models)
-            ButtonPlacementsView()
+            }
             }
         }
     }
