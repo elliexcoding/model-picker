@@ -9,8 +9,10 @@ import SwiftUI
 import RealityKit
 
 struct ContentView : View {
-    
     @State private var isPlacementEnabled = false
+    @State private var selectedModel: String?
+    @State private var modelConfirmedPlacement: String?
+    
     private var models: [String] = {
        // dynamically fetch file names
         let filemanager = FileManager.default
@@ -33,9 +35,9 @@ struct ContentView : View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
             if self.isPlacementEnabled {
-                ButtonPlacementsView(isPlacementEnabled: self.$isPlacementEnabled)
+                ButtonPlacementsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedPlacement: self.$modelConfirmedPlacement)
             } else {
-                ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, models: self.models)
+                ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
             }
             }
         }
@@ -61,6 +63,8 @@ struct ARViewContainer: UIViewRepresentable {
 // Model Picker view
 struct ModelPickerView: View {
     @Binding var isPlacementEnabled: Bool
+    @Binding var selectedModel: String?
+    
     var models: [String]
     
     var body: some View {
@@ -69,6 +73,9 @@ struct ModelPickerView: View {
                 ForEach(0 ..< self.models.count) {
                     index in Button(action: {
                         print("Debug: selected model with name \(self.models[index])")
+                        
+                        self.selectedModel = self.models[index]
+                        
                         self.isPlacementEnabled = true
                     }) {
                         Image(uiImage: UIImage(named: self.models[index])!)
@@ -88,6 +95,9 @@ struct ModelPickerView: View {
 
 struct ButtonPlacementsView: View {
     @Binding var isPlacementEnabled: Bool
+    @Binding var selectedModel: String?
+    @Binding var modelConfirmedPlacement: String?
+    
     var body: some View {
         HStack {
             // cancel
@@ -106,6 +116,9 @@ struct ButtonPlacementsView: View {
             // confirm
             Button(action: {
                 print("DEBUG: Confirm Model Placement")
+                
+                self.modelConfirmedPlacement = self.selectedModel
+                
                 self.resetPlacement()
             }) {
                 Image(systemName: "checkmark")
@@ -121,6 +134,7 @@ struct ButtonPlacementsView: View {
     
     func resetPlacement() {
         self.isPlacementEnabled = false
+        self.selectedModel = nil
     }
 }
 
