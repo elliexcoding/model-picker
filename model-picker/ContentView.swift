@@ -33,9 +33,9 @@ struct ContentView : View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
             if self.isPlacementEnabled {
-                ButtonPlacementsView()
+                ButtonPlacementsView(isPlacementEnabled: self.$isPlacementEnabled)
             } else {
-            ModelPickerView(models: self.models)
+                ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, models: self.models)
             }
             }
         }
@@ -60,6 +60,7 @@ struct ARViewContainer: UIViewRepresentable {
 
 // Model Picker view
 struct ModelPickerView: View {
+    @Binding var isPlacementEnabled: Bool
     var models: [String]
     
     var body: some View {
@@ -68,6 +69,7 @@ struct ModelPickerView: View {
                 ForEach(0 ..< self.models.count) {
                     index in Button(action: {
                         print("Debug: selected model with name \(self.models[index])")
+                        self.isPlacementEnabled = true
                     }) {
                         Image(uiImage: UIImage(named: self.models[index])!)
                             .resizable()
@@ -85,11 +87,13 @@ struct ModelPickerView: View {
 }
 
 struct ButtonPlacementsView: View {
+    @Binding var isPlacementEnabled: Bool
     var body: some View {
         HStack {
             // cancel
             Button(action: {
                 print("DEBUG: Cancel Model Placement")
+                self.isPlacementEnabled = false
             }) {
                 Image(systemName: "xmark")
                     .frame(width: 60, height: 60)
@@ -102,6 +106,7 @@ struct ButtonPlacementsView: View {
             // confirm
             Button(action: {
                 print("DEBUG: Confirm Model Placement")
+                self.isPlacementEnabled = false
             }) {
                 Image(systemName: "checkmark")
                     .frame(width: 60, height: 60)
