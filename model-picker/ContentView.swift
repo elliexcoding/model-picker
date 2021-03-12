@@ -33,7 +33,7 @@ struct ContentView : View {
     }()
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelCOnfirmedPlacement: self.$modelConfirmedPlacement)
+            ARViewContainer(modelConfirmedPlacement: self.$modelConfirmedPlacement)
             if self.isPlacementEnabled {
                 ButtonPlacementsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedPlacement: self.$modelConfirmedPlacement)
             } else {
@@ -44,7 +44,7 @@ struct ContentView : View {
     }
 
 struct ARViewContainer: UIViewRepresentable {
-    @Binding var modelCOnfirmedPlacement: String?
+    @Binding var modelConfirmedPlacement: String?
     
     func makeUIView(context: Context) -> ARView {
         
@@ -56,11 +56,13 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        if let modelName = self.modelCOnfirmedPlacement {
+        if let modelName = self.modelConfirmedPlacement {
             print("DEBUG: Adding model to scene \(modelName)")
             
             // reset when placed in scene to avoid stacking
-            
+            DispatchQueue.main.async {
+                self.modelConfirmedPlacement = nil
+            }
         }
     }
     
