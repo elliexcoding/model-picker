@@ -93,7 +93,7 @@ struct ButtonPlacementsView: View {
             // cancel
             Button(action: {
                 print("DEBUG: Cancel Model Placement")
-                self.isPlacementEnabled = false
+                self.resetPlacement()
             }) {
                 Image(systemName: "xmark")
                     .frame(width: 60, height: 60)
@@ -106,7 +106,7 @@ struct ButtonPlacementsView: View {
             // confirm
             Button(action: {
                 print("DEBUG: Confirm Model Placement")
-                self.isPlacementEnabled = false
+                self.resetPlacement()
             }) {
                 Image(systemName: "checkmark")
                     .frame(width: 60, height: 60)
@@ -117,6 +117,10 @@ struct ButtonPlacementsView: View {
                     .padding(20)
             }
         }
+    }
+    
+    func resetPlacement() {
+        self.isPlacementEnabled = false
     }
 }
 
