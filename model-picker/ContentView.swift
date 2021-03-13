@@ -74,7 +74,9 @@ struct ARViewContainer: UIViewRepresentable {
                 print("DEBUG: Adding model to scene \(model.modelName)")
                 
                 let anchorEntity = AnchorEntity(plane: .any)
-                anchorEntity.addChild(modelEntity)
+                // make copy of model on placement
+                anchorEntity.addChild(modelEntity
+                    .clone(recursive: true))
                 uiView.scene.addAnchor(anchorEntity)
             } else {
                 print("DEBUG: Can't load modelEntity for \(model.modelName)")
