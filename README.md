@@ -4,4 +4,7 @@ Demo application that lets the user choose from a variety of AR models to place 
 
 Constructed with RealityKit.
 
-TODO: Attach frame to specific objects for multimedia playback.
+TODO: Attach frame to specific objects for multimedia playback and selection interface for placing models.
+
+![Image of Model Picker]
+(https://github.com/elliexcoding/model-picker/blob/main/Screenshots/picker.jpeg)
