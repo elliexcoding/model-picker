@@ -6,4 +6,4 @@ Constructed with RealityKit.
 
 TODO: Attach frame to specific objects for multimedia playback and selection interface for placing models.
 
-![screenshot] (https://github.com/elliexcoding/model-picker/blob/main/Screenshots/picker.jpeg?raw=true)
+![screenshot] (/Screenshots/picker.jpeg?raw=true)
